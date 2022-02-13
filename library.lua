@@ -232,12 +232,14 @@ function library:Init(name, color)
         library.tabs[name] = {}
 
         -- Detect when the tab is pressed
-        local tween
+        local tweeninfo = TweenInfo.new(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+        local tween = TweenService:Create(Tab, tweeninfo, {
+            TextColor3 = library.color
+        })
+
         local debounce = true
         library:Connection(Tab, "Activated", function()
-            print(Tab.Name, library.selected)
-            if debounce and tween then
-                tween.Completed:Wait()
+            if debounce then
                 debounce = false
             end
             if name == library.selected then
@@ -248,11 +250,8 @@ function library:Init(name, color)
                     library.screengui.Topbar.Options:FindFirstChild(_).TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
     
-                local tweeninfo = TweenInfo.new(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
-                tween = TweenService:Create(Tab, tweeninfo, {
-                    TextColor3 = library.color
-                })
                 tween:Play()
+                tween.Completed:Wait()
                 debounce = true
             end
         end)
