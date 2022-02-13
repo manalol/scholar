@@ -1117,3 +1117,5 @@ function section:AddToggleKeybind(name, flag, keybind_flag, callback)
         end
     end)
 end
+
+return library
