@@ -249,11 +249,13 @@ function library:Init(name, color)
                 for _, tab in pairs(library.tabs) do
                     library.screengui.Topbar.Options:FindFirstChild(_).TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
-    
-                tween:Play()
-                tween.Completed:Wait(function()
-                    debounce = true
-                end) 
+                task.delay(.5, function()
+                    tween:Play()
+                    tween.Completed:Wait(function()
+                        debounce = true
+                    end) 
+                end)
+                
             end
         end)
 
