@@ -240,7 +240,6 @@ function library:Init(name, color)
                 debounce = false
             end
             if name == library.selected then
-                print("esda")
                 return
             else
                 library.selected = Tab.Name
@@ -908,7 +907,6 @@ function section:AddSlider(name, max, flag, callback)
 
     local dragging
     library:Connection(Button, "MouseButton1Down", function()
-        print("activated")
         dragging = true
     end)
 
