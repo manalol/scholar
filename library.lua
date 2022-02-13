@@ -238,9 +238,11 @@ function library:Init(name, color)
             if debounce then
                 debounce = false
             end
-            if Tab.Name == library.selected then
+            if name == library.selected then
+                print("esda")
                 return
             else
+                library.selected = Tab.Name
                 for _, tab in pairs(library.tabs) do
                     library.screengui.Topbar.Options:FindFirstChild(_).TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
@@ -250,8 +252,6 @@ function library:Init(name, color)
                     TextColor3 = library.color
                 })
                 tween:Play()
-                library.selected = Tab.Name
-    
                 debounce = true
             end
         end)
