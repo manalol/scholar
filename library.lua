@@ -249,20 +249,6 @@ function library:Init(name, color)
             })
             tween:Play()
             debounce = true
-
-            for _, section in next, LeftSection:GetChildren() do
-                if not section:IsA("UIListLayout") then
-                    section:Destroy()
-                end
-            end
-
-            for _, section in next, RightSection:GetChildren() do
-                if not section:IsA("UIListLayout") then
-                    section:Destroy()
-                end
-            end
-
-         
         end)
 
         tab.name = name
