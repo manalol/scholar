@@ -32,6 +32,8 @@ library.__index = library
 
 
 function library:Drawing(type, properties, gc)
+    gc = gc or true
+    print(gc)
     local object = Drawing.new(type)
 
     for i, v in next, properties do
