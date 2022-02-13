@@ -24,7 +24,8 @@ if not getgenv().library then
         screengui = nil,
         connections = {},
         objects = {},
-        opened = false
+        opened = false,
+        selected = ""
     }
 end
 library.__index = library
@@ -194,7 +195,6 @@ function library:Init(name, color)
                 local relativepos = new - old
                 old = new
 
-                print(relativepos)
                 library.screengui.Main.Position = library.screengui.Main.Position + UDim2.fromOffset(relativepos.X, relativepos.Y)
                 library.screengui.Topbar.Position = library.screengui.Topbar.Position +  UDim2.fromOffset(relativepos.X, relativepos.Y)
             end
@@ -238,17 +238,22 @@ function library:Init(name, color)
             if debounce then
                 debounce = false
             end
-
-            for _, tab in pairs(library.tabs) do
-                library.screengui.Topbar.Options:FindFirstChild(_).TextColor3 = Color3.fromRGB(255, 255, 255)
+            if Tab.Name == library.selected then
+                return
+            else
+                for _, tab in pairs(library.tabs) do
+                    library.screengui.Topbar.Options:FindFirstChild(_).TextColor3 = Color3.fromRGB(255, 255, 255)
+                end
+    
+                local tweeninfo = TweenInfo.new(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+                tween = TweenService:Create(Tab, tweeninfo, {
+                    TextColor3 = library.color
+                })
+                tween:Play()
+                library.selected = Tab.Name
+    
+                debounce = true
             end
-
-            local tweeninfo = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
-            tween = TweenService:Create(Tab, tweeninfo, {
-                TextColor3 = library.color
-            })
-            tween:Play()
-            debounce = true
         end)
 
         tab.name = name
