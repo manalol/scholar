@@ -118,7 +118,7 @@ function library:Init(name, color)
     
     Seperator.Name = "Seperator"
     Seperator.Parent = ProtectedGui.Topbar
-    Seperator.BackgroundColor3 = Color3.fromRGB(255, 170, 127)
+    Seperator.BackgroundColor3 = library.color
     Seperator.BorderColor3 = Color3.fromRGB(255, 255, 255)
     Seperator.BorderSizePixel = 0
     Seperator.Position = UDim2.new(0.030, 0, 0, 35)
