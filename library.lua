@@ -1,3 +1,7 @@
+--[[ Somewhere in a source code
+local library = [...]
+local avalanche = library:Init("avalanche", Color3.fromRGB(24, 24, 24))
+]]
 
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
@@ -1117,5 +1121,53 @@ function section:AddToggleKeybind(name, flag, keybind_flag, callback)
         end
     end)
 end
+
+local Players = game:GetService("Players")
+
+-- Library initalization
+local lib = library:Init("avalanche")
+
+-- Tabs
+local visuals = library:AddTab("Visuals")
+
+-- Visuals
+local player_esp = visuals:AddSection("Player", "Left")
+player_esp:AddToggle("Enabled", "esp_enabled")
+
+
+player_esp:AddToggle("Box ESP", "boxesp_enabled", function()
+    if library.flags.esp_enabled then    
+        for _, v in next, Players:GetPlayers() do
+            if v and v.Character:FindFirstChild("HumanoidRootPart") then
+                local hrp = v.Character:FindFirstChild("HumanoidRootPart")
+
+                local box = library:Drawing("Square", {
+                    Filled = false,
+                    Visible = true,
+                    Thickness = 1,
+                    Color = Color3.new(255, 255, 255)
+                }, false)
+
+                task.spawn(function()
+                    while library.flags.boxesp_enabled and library.flags.esp_enabled do
+                        local vector, visible = workspace.CurrentCamera:WorldToViewportPoint(hrp.Position)
+                        if visible then
+                            box.Visible = true
+                            box.Size = Vector2.new(200, 200)
+                            box.Position = Vector2.new(vector.x - 100, vector.y)
+                        else
+                            box.Visible = false
+                        end
+                       
+                        task.wait()
+                    end
+                    box:Remove()
+                end)
+                
+                
+            end
+        end
+    end
+end)
 
 return library
