@@ -251,8 +251,9 @@ function library:Init(name, color)
                 end
     
                 tween:Play()
-                tween.Completed:Wait()
-                debounce = true
+                tween.Completed:Wait(function()
+                    debounce = true
+                end) 
             end
         end)
 
