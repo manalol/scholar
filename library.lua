@@ -235,6 +235,7 @@ function library:Init(name, color)
         local tween
         local debounce = true
         library:Connection(Tab, "Activated", function()
+            print(Tab.Name, library.selected)
             if debounce then
                 debounce = false
             end
